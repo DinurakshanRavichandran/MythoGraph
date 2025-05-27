@@ -21,5 +21,28 @@ class MemoryItem:
         self.associative_links = []   # List of MemoryItem IDs that are associated with this item
 
 class vector_memory:
-    ... 
+    def _get_embedding(self,  text: str) -> np.ndarray:
+        ...
 
+    def add_memory(self, memory: MemoryItem):
+        ...
+    
+    def search(self, query: str, temporal_context: datetime = None, n_results: int = 5) -> List[MemoryItem]:
+        ...
+
+    def calculate_decay(self, timestamp: datetime) -> float:
+        ...
+    
+    def time_decay(self, memory: MemoryItem, context_time: datetime) -> float:
+        ...
+
+    def consolidate_memories(self):
+        ...
+    
+    def save_state(self, file_path: str):
+        ...
+    
+    def load_state(self, file_path: str):
+        ...
+    
+    
