@@ -14,4 +14,14 @@ class WorldBuilder:
         self.vector_store.store("map", map_data)
         return map_data
     
+    def generate_culture(self):
+        """Generate a culture with religitions, merge systems, etc."""
+        culture = {
+            "name": "Eldrin",
+            "religion": "Cult of the Sky Serpent",
+            "magic_system": "Rune-based elemental magic"
+        }
+        self.vector_store.store("culture", culture)
+        return culture
+    
     
