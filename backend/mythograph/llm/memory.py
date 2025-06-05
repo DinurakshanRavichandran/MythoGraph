@@ -76,7 +76,11 @@ class vector_memory:
 
 
     def consolidate_memories(self):
-        ...
+        """Neuro-symbolic memory consolidation process"""
+        #cluster similar memeories
+        
+        embeddings = np.array([self._get_embedding(m.content) for m in self.memory_buffer])
+        _, assignments = faiss.kmeans(embeddings, len(self.memory_buffer) // 10)
     
     def save_state(self, file_path: str):
         ...
