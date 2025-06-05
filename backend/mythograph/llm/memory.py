@@ -104,6 +104,17 @@ class vector_memory:
            json.dump(state, f
     
     def load_state(self, file_path: str):
-        ...
+    with open(filepath, 'r') as f:
+            state = json.load(f)
+            self.memory_buffer = deque(maxlen=self.memory_buffer.maxlen)
+            for m in state['memories']:
+                memory = MemoryItem(
+                    content=m['content'],
+                    memory_type=m['type'],
+                    importance=m['importance']
+                )
+                memory.timestamp = datetime.fromisoformat(m['timestamp'])
+                memory.emotional_weight = m['emotional_weight']
+                self.add_memory(memory)
     
     
