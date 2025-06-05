@@ -21,6 +21,17 @@ class MemoryItem:
         self.associative_links = []   # List of MemoryItem IDs that are associated with this item
 
 class vector_memory:
+    def __init__(self, max_capacity=1000, decay_factor=0.95):
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.index = faiss.IndexFlatL2(384)
+        self.memory_buffer = deque(maxlen=max_capacity)
+        self.decayfactor = decay_factor
+        self.importance_threshold = 0.2
+
+        #Temportal context tracking 
+        self.time_scale = 1.0 # = realtime, > 1.0 = compressed time
+
+
     def _get_embedding(self,  text: str) -> np.ndarray:
         ...
 
