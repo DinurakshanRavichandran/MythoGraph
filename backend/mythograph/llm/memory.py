@@ -33,7 +33,7 @@ class vector_memory:
 
 
     def _get_embedding(self,  text: str) -> np.ndarray:
-        ...
+        return self.model.encode(text, convert_to_tensor=False)
 
     def add_memory(self, memory: MemoryItem):
         ...
