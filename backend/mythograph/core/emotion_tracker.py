@@ -21,3 +21,13 @@ class EmotionTracker:
             emotion = self.analyze_text(event["description"])
             self. emotion_history.append(emotion)
         return self.emotion_history
+    
+    def plot_arc(self):
+        """Pllot the emotional arc (for debugging)."""
+        import matplotlib.pyplot as plt
+        emotions = np.array(self.emotion_history)
+        plt.plot(emotions[:, 0], label = "Joy")
+        plt.plot(emotions[:, 1], label="Anger")
+        plt.legend()
+        plt.show()
+        
