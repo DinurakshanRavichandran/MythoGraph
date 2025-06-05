@@ -81,6 +81,14 @@ class vector_memory:
         
         embeddings = np.array([self._get_embedding(m.content) for m in self.memory_buffer])
         _, assignments = faiss.kmeans(embeddings, len(self.memory_buffer) // 10)
+
+        #Strengthen important clusters
+        for cluster_id in set(assignments):
+            cluster_memories = [ m for m, c in zip(self.memory_buffer, assignments) if c == cluster_id]
+            if len(cluster_memories) > 3:
+                for mem in cluster_memories:
+                    mem.importance = min(1.0, mem.importance * 1.2)
+            
     
     def save_state(self, file_path: str):
         ...
