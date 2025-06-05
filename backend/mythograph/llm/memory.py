@@ -69,7 +69,11 @@ class vector_memory:
         return np.exp(-self.decayfactor * time_diff/3600) #3600
     
     def time_decay(self, memory: MemoryItem, context_time: datetime) -> float:
-        ...
+        if not context_time:
+            return 1.0
+        time_diff = (context_time - memory.timestamp).total_seconds()
+        return 1/ (1 + np.sqrt(time_diff / 3600))
+
 
     def consolidate_memories(self):
         ...
