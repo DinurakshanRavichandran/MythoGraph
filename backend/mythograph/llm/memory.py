@@ -47,7 +47,22 @@ class vector_memory:
         self.memory_buffer.append(memory)
     
     def search(self, query: str, temporal_context: datetime = None, n_results: int = 5) -> List[MemoryItem]:
-        ...
+        #Semantic search
+        query_embed = self._get_embedding(query)
+        _, indices = self.index.search(np.array(np.array([query_embed]), n_results))
+
+        #Temporal relevance
+        results = []
+        for idx in indices[0]:
+            if idx < len(self.memory_buffer)
+                mem = self.memeory_buffer[idx]
+                time_weight = self._time_decay(mem, temporal_context)
+                relevance = (0.6 * mem.importance + 0.3 * time_weight + 0.1 * mem.emotional_weight)
+                results.append((relevance,mem))
+
+        #sort by combined relevance
+        return [mem for _, mem in heapq.nlargest(n_results, results)]
+
 
     def calculate_decay(self, timestamp: datetime) -> float:
         ...
