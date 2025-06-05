@@ -36,7 +36,15 @@ class vector_memory:
         return self.model.encode(text, convert_to_tensor=False)
 
     def add_memory(self, memory: MemoryItem):
-        ...
+        #calculate dynamic improtance based on decay
+        memory.importance = self._caculate_decay(memory.timestamp)
+
+        #Add to Faiss index if semantically important
+        if memory.importance > self.importance_threshold:
+            embedding = self._get_embedding(memory.content)
+            self.index.add(np.array([embedding]))
+
+        self.memory_buffer.append(memory)
     
     def search(self, query: str, temporal_context: datetime = None, n_results: int = 5) -> List[MemoryItem]:
         ...
