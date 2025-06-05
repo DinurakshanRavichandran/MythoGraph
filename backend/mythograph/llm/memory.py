@@ -91,7 +91,17 @@ class vector_memory:
             
     
     def save_state(self, file_path: str):
-        ...
+       state = {
+           'memories':[{
+               'content' : m.content,
+               'type' : m.memory_type,
+               'timestamp' : m.timestamp.isoformat(),
+               'importance' : m.importance,
+               'emotional_weight' : m.emotional_weight
+           } for m in self.memory_buffer]
+       }
+       with open(file_path, 'w') as f:
+           json.dump(state, f
     
     def load_state(self, file_path: str):
         ...
