@@ -65,7 +65,8 @@ class vector_memory:
 
 
     def calculate_decay(self, timestamp: datetime) -> float:
-        ...
+        time_diff = (datetime.now() - timestamp).total_seconds()
+        return np.exp(-self.decayfactor * time_diff/3600) #3600
     
     def time_decay(self, memory: MemoryItem, context_time: datetime) -> float:
         ...
