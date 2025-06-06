@@ -39,3 +39,12 @@ class GraphManger:
         with self.driver.session() as session:
             result = session.run(query, **params)
             return [{"description": record["description"]} for record in result]
+        
+    def get_relationships(self, agent_id):
+        query ="""
+        MATCH (a:Character {agent_id: $agent_id})-[r]->(b)
+        RETURN type(r) AS relationship, b.name AS target
+        """
+        with self.driver.session() as session:
+            result = session.run(query, agent_id=agent_id)
+            return [{"relationship": record["relationship"], "target": record["target"]} for record in result]
