@@ -3,18 +3,25 @@ from ..llm.model_interface import LLMInterface
 class NarrativePlanner:
     def __init__(self):
         self.llm = LLMInterface()
-        self.plans = {} # Store character plans
+        self.plans = {}
 
-    def gererate_plan(self, agent, goal, conflict, theme):
-        """Generate a plan for a character using IPOCL (Intent-driven Partial Order Casual Link)."""
-        prompt = f"Generate a narrative plan for {agent.name} with goal '{goal}', '{conflict}', and theme '{theme}' using IPOCL framework."
+    def generate_plan(self, agent, goal, conflict, theme):
+        """Create an IPOCL-style plan for a given character."""
+        prompt = (
+            f"Generate a narrative plan for character {agent.name} "
+            f"with goal '{goal}', conflict '{conflict}', and theme '{theme}' "
+            f"using the IPOCL planning framework."
+        )
         plan = self.llm.generate_response(prompt)
         self.plans[agent.agent_id] = plan
         return plan
-    
+
     def evaluate_plan(self, agent, story_context):
-        """Evaluate if the plan aligns with the current story context."""
+        """Evaluate plan alignment with current story context."""
         plan = self.plans.get(agent.agent_id, "")
-        prompt = f"Does the plan '{plan}' align with story context'{story_context}'?"
-        alignment = self.llm.gererate_response(prompt)
-        return alignment.lower().startswith("yes")
+        prompt = (
+            f"Given the current story context: '{story_context}', "
+            f"does this plan align: '{plan}'?"
+        )
+        alignment = self.llm.generate_response(prompt)
+        return alignment.strip().lower().startswith("yes")
