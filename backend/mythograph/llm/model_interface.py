@@ -23,6 +23,14 @@ class ModelInterface:
         Generate text using the LLM (mock implementation for now).
         Text generation and classification models can be added later.
         """   
+        try:
+            # Mock response for now
+            logger.info("Generating text for prompt: %s", prompt[:50])
+            mock_response = f"Generated story event: {prompt} [Mocked response]"
+            return mock_response
+        except Exception as e:
+            logger.error("Error generating text: %s", str(e))
+            raise RuntimeError(f"Text generation failed: {str(e)}")
         
     def get_embedding(self, text: str) -> np.ndarray:
         """
