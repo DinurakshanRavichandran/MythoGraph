@@ -49,7 +49,20 @@ class ModelInterface:
         Classify the emotional tone of the text (mock implementation for now).
         Returns a dictionary of emotion scores (e.g., joy, sadness).
         Replace with actual classifier model.
-        """    
+        """  
+        try:
+            logger.info("Classifying emotion for text: %s", text[:50])
+            # Mock emotion scores
+            mock_scores = {
+                "joy": 0.6,
+                "sadness": 0.2,
+                "anger": 0.1,
+                "fear": 0.1
+            }  
+            return mock_scores
+        except Exception as e:
+            logger.error("Error classifying emotion: %s", str(e))
+            raise RuntimeError(f"Emotion classification failed: {str(e)}")
         ...
     def initialize_text_model(self, model_name: str, model_config: Optional[Dict[str, Any]] = None):
         """
