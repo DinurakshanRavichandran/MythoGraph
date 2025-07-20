@@ -42,3 +42,9 @@ class ModelInterface:
         Initialize the text generation model.
         Replace with actual model laoding logic.
         """
+        ...
+    def initialize_classifier_model(self, model_name: str, model_config: Optional[Dict[str, Any]] = None):
+        """
+        Initialize the emotion classifier model.
+        Replace with actual model loading logic.
+        """
