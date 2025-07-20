@@ -36,7 +36,13 @@ class ModelInterface:
         """
         Generate an embedding for the given text using the embedding model.
         """    
-        ...
+        try:
+            logger.debug("Generating embedding for text: %s", text[:50])
+            embedding = self.embedding_model.encode(text, convert_to_tensor=False)
+            return embedding
+        except Exception as e:
+            logger.error("error generating embedding: %s", str(e))
+            raise RuntimeError(f"Embedding generation failed: %s", str(e))
 
     def classify_emotion(self, text: str) -> Dict[str, float]:
         """
