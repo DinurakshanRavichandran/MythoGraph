@@ -63,16 +63,30 @@ class ModelInterface:
         except Exception as e:
             logger.error("Error classifying emotion: %s", str(e))
             raise RuntimeError(f"Emotion classification failed: {str(e)}")
-        ...
+        
     def initialize_text_model(self, model_name: str, model_config: Optional[Dict[str, Any]] = None):
         """
         Initialize the text generation model.
         Replace with actual model laoding logic.
         """
-        ...
+        try:
+            logger.info("Initializing text model:")
+            #Place holder for loading the text generation model
+            self.text_model = f"MockTextModel({model_name})"
+        except Exception as e:
+            logger.error("Error intializeing text model: %s", str(e))
+            raise RuntimeError(f"Text model initialization failed: {str(e)}")
+        
     def initialize_classifier_model(self, model_name: str, model_config: Optional[Dict[str, Any]] = None):
         """
         Initialize the emotion classifier model.
         Replace with actual model loading logic.
         """
-        ...
+        
+        try:
+            logger.info("Initializing classifier model: %s", model_name)
+            # Placeholder for loading the classifier model
+            self.classifier_model = f"MockClassifierModel({model_name})"
+        except Exception as e:
+            logger.error("Error initializing classifier model: %s", str(e))
+            raise RuntimeError(f"Classifier model initialization failed: {str(e)}")
